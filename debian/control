@@ -8,7 +8,7 @@ Homepage: http://http://www.spice-space.org/
 Vcs-Git: git://git.debian.org/collab-maint/spice-protocol.git
 Vcs-Browser: http://git.debian.org/?p=collab-maint/spice-protocol.git;a=summary
 
-Package: spice-protocol-dev
+Package: libspice-protocol-dev
 Section: libdevel
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
