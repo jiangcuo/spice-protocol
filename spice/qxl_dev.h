@@ -154,14 +154,14 @@ typedef struct SPICE_ATTR_PACKED QXLModes {
 } QXLModes;
 
 /* qxl-1 compat: append only */
-enum QXLCmdType {
+typedef enum QXLCmdType {
     QXL_CMD_NOP,
     QXL_CMD_DRAW,
     QXL_CMD_UPDATE,
     QXL_CMD_CURSOR,
     QXL_CMD_MESSAGE,
     QXL_CMD_SURFACE,
-};
+} QXLCmdType;
 
 /* qxl-1 compat: fixed */
 typedef struct SPICE_ATTR_PACKED QXLCommand {
@@ -340,14 +340,17 @@ typedef struct SPICE_ATTR_PACKED QXLCopyBits {
     QXLPoint src_pos;
 } QXLCopyBits;
 
-#define QXL_EFFECT_BLEND 0
-#define QXL_EFFECT_OPAQUE 1
-#define QXL_EFFECT_REVERT_ON_DUP 2
-#define QXL_EFFECT_BLACKNESS_ON_DUP 3
-#define QXL_EFFECT_WHITENESS_ON_DUP 4
-#define QXL_EFFECT_NOP_ON_DUP 5
-#define QXL_EFFECT_NOP 6
-#define QXL_EFFECT_OPAQUE_BRUSH 7
+typedef enum QXLEffectType
+{
+    QXL_EFFECT_BLEND = 0,
+    QXL_EFFECT_OPAQUE = 1,
+    QXL_EFFECT_REVERT_ON_DUP = 2,
+    QXL_EFFECT_BLACKNESS_ON_DUP = 3,
+    QXL_EFFECT_WHITENESS_ON_DUP = 4,
+    QXL_EFFECT_NOP_ON_DUP = 5,
+    QXL_EFFECT_NOP = 6,
+    QXL_EFFECT_OPAQUE_BRUSH = 7
+} QXLEffectType;
 
 typedef struct SPICE_ATTR_PACKED QXLPattern {
     QXLPHYSICAL pat;
@@ -511,10 +514,10 @@ typedef struct SPICE_ATTR_PACKED QXLDrawable {
     } u;
 } QXLDrawable;
 
-enum QXLSurfaceCmdType {
+typedef enum QXLSurfaceCmdType {
     QXL_SURFACE_CMD_CREATE,
     QXL_SURFACE_CMD_DESTROY,
-};
+} QXLSurfaceCmdType;
 
 typedef struct SPICE_ATTR_PACKED QXLSurface {
     uint32_t format;
@@ -574,16 +577,16 @@ typedef union {
   uint64_t value;
 } QXLImageIDUnion;
 
-enum {
+typedef enum QXLImageFlags {
     QXL_IMAGE_CACHE = (1 << 0),
     QXL_IMAGE_HIGH_BITS_SET = (1 << 1),
-};
+} QXLImageFlags;
 
-enum {
+typedef enum QXLBitmapFlags {
     QXL_BITMAP_DIRECT = (1 << 0),
     QXL_BITMAP_UNSTABLE = (1 << 1),
     QXL_BITMAP_TOP_DOWN = (1 << 2), // == SPICE_BITMAP_FLAGS_TOP_DOWN
-};
+} QXLBitmapFlags;
 
 #define QXL_SET_IMAGE_ID(image, _group, _unique) {              \
     (image)->descriptor.id = (((uint64_t)_unique) << 32) | _group;	\
