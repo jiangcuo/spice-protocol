@@ -1,5 +1,5 @@
-spice-protocol (0.6.3-1) experimental; urgency=low
+spice-protocol (0.6.4-1) unstable; urgency=low
 
   * Initial release (Closes: #603697)
 
- -- Liang Guo <bluestonechina@gmail.com>  Wed, 03 Nov 2010 13:28:53 +0800
+ -- Liang Guo <bluestonechina@gmail.com>  Sat, 19 Feb 2011 22:55:54 +0800
