@@ -1,3 +1,9 @@
+spice-protocol (0.8.0-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Liang Guo <bluestonechina@gmail.com>  Sun, 06 Mar 2011 16:19:44 +0800
+
 spice-protocol (0.6.4-1) unstable; urgency=low
 
   * Initial release (Closes: #603697)
