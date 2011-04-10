@@ -60,6 +60,10 @@ License: GPL-2 or later
  file for a list of people on the GLib Team.  See the ChangeLog
  files for a list of changes.  These files are distributed with
  GLib at ftp://ftp.gtk.org/pub/gtk/.
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ '/usr/share/common-licenses/GPL-2'.
 
 Files: spice/controller_prot.h, spice/foreign_menu_prot.h
 Copyright: Copyright (C) 2009 Red Hat, Inc.
@@ -76,6 +80,10 @@ License: GPL-2 or later
  .
  You should have received a copy of the GNU Lesser General Public
  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ '/usr/share/common-licenses/GPL-2'.
 
 Files: debian/*
 Copyright: Copyright (C) 2010 Liang Guo <bluestonechina@gmail.com>
@@ -92,3 +100,7 @@ License: GPL-2 or later
  .
  You should have received a copy of the GNU Lesser General Public
  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ '/usr/share/common-licenses/GPL-2'.
