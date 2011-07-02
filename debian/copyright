@@ -1,11 +1,11 @@
-Format: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=173
+Format: http://dep.debian.net/deps/dep5/
 Upstream-Name: spice-protocol 
 Upstream-Contact: Alexander Larsson <alexl@redhat.com>,
- Alon Levy <alevy@redhat.com>,
- Arnon Gilboa <agilboa@agilboa.usersys.redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Izik Eidus <ieidus@redhat.com>,
- Yonit Halperin <yhalperi@redhat.com>
+                  Alon Levy <alevy@redhat.com>,
+                  Arnon Gilboa <agilboa@agilboa.usersys.redhat.com>,
+                  Gerd Hoffmann <kraxel@redhat.com>,
+                  Izik Eidus <ieidus@redhat.com>,
+                  Yonit Halperin <yhalperi@redhat.com>
 Source: http://www.spice-space.org/download/releases/
 
 Files: *
@@ -37,6 +37,7 @@ License: BSD-3-clause
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.    
 
+
 Files: spice/macros.h
 Copyright: Copyright (C) 2010 Red Hat, Inc
 License: GPL-2 or later
@@ -65,7 +66,8 @@ License: GPL-2 or later
  License version 2 can be found in the file
  '/usr/share/common-licenses/GPL-2'.
 
-Files: spice/controller_prot.h, spice/foreign_menu_prot.h
+
+Files: spice/controller_prot.h spice/foreign_menu_prot.h
 Copyright: Copyright (C) 2009 Red Hat, Inc.
 License: GPL-2 or later
  This library is free software; you can redistribute it and/or
@@ -84,6 +86,7 @@ License: GPL-2 or later
  On Debian systems, the full text of the GNU General Public
  License version 2 can be found in the file
  '/usr/share/common-licenses/GPL-2'.
+
 
 Files: debian/*
 Copyright: Copyright (C) 2010 Liang Guo <bluestonechina@gmail.com>
@@ -104,3 +107,5 @@ License: GPL-2 or later
  On Debian systems, the full text of the GNU General Public
  License version 2 can be found in the file
  '/usr/share/common-licenses/GPL-2'.
+
+
