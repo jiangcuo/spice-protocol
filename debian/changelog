@@ -1,3 +1,9 @@
+spice-protocol (0.8.0-2) unstable; urgency=low
+
+  * Add missing spice/types include in spice/controller_prot.h
+
+ -- Liang Guo <bluestonechina@gmail.com>  Sun, 03 Jul 2011 01:56:51 +0800
+
 spice-protocol (0.8.0-1) unstable; urgency=low
 
   * Initial release (Closes: #603697)
