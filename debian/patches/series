@@ -1,1 +1,2 @@
 include_types_h_in_controller_port.patch
+introduce_defines_for_rings_sizes_in_qxl_dev.patch

@@ -1,3 +1,9 @@
+spice-protocol (0.8.0-3) unstable; urgency=low
+
+  * Introduce defines for rings sizes in spice/qxl_dev
+
+ -- Liang Guo <bluestonechina@gmail.com>  Fri, 15 Jul 2011 22:44:53 +0800
+
 spice-protocol (0.8.0-2) unstable; urgency=low
 
   * Add missing spice/types include in spice/controller_prot.h
