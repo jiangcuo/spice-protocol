@@ -10,7 +10,7 @@ Vcs-Browser: http://git.debian.org/?p=collab-maint/spice-protocol.git;a=summary
 
 Package: libspice-protocol-dev
 Section: libdevel
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: SPICE protocol headers
  The Simple Protocol for Independent Computing Environments (SPICE) 
