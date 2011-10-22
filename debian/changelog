@@ -1,7 +1,11 @@
 spice-protocol (0.8.2-1) unstable; urgency=low
 
+  [ Liang Guo ]
   * New upstream release
   * Update Format field in debian/copyright
+  
+  [ Aron Xu ]
+  * debian/control: set DMUA.
 
  -- Liang Guo <bluestonechina@gmail.com>  Thu, 20 Oct 2011 10:21:30 +0800
 
