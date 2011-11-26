@@ -1,5 +1,5 @@
 Source: spice-protocol
-Priority: extra
+Priority: optional
 Maintainer: Liang Guo <bluestonechina@gmail.com>
 DM-Upload-Allowed: yes
 Build-Depends: debhelper (>= 7.0.50~)
