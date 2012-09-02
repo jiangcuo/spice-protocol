@@ -119,6 +119,12 @@ enum {
 
 enum {
     SPICE_MAIN_CAP_SEMI_SEAMLESS_MIGRATE,
+    SPICE_MAIN_CAP_NAME_AND_UUID,
+};
+
+enum {
+    SPICE_DISPLAY_CAP_SIZED_STREAM,
+    SPICE_DISPLAY_CAP_MONITORS_CONFIG,
 };
 
 #include <spice/end-packed.h>
