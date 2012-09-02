@@ -1,4 +1,4 @@
-spice-protocol (0.12.0-1) UNRELEASED; urgency=low
+spice-protocol (0.12.0-1) experimental; urgency=low
 
   * New upstream release
   * debian/control:
