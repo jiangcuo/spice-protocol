@@ -1,3 +1,10 @@
+spice-protocol (0.12.6-1) unstable; urgency=low
+
+  *  New upstream release
+  *  Bump Standards-Version to 3.9.4
+
+ -- Liang Guo <guoliang@debian.org>  Wed, 17 Jul 2013 17:45:43 +0800
+
 spice-protocol (0.12.5-2) unstable; urgency=low
 
   * Upload to unstable
