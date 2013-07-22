@@ -1,7 +1,8 @@
 spice-protocol (0.12.6-1) unstable; urgency=low
 
-  *  New upstream release
-  *  Bump Standards-Version to 3.9.4
+  * New upstream release
+  * Bump Standards-Version to 3.9.4
+  * Update VCS-* to use canonical URIs
 
  -- Liang Guo <guoliang@debian.org>  Wed, 17 Jul 2013 17:45:43 +0800
 
