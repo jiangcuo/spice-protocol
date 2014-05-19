@@ -1,6 +1,7 @@
 Source: spice-protocol
 Priority: optional
 Maintainer: Liang Guo <guoliang@debian.org>
+Uploaders: Michael Tokarev <mjt@tls.msk.ru>
 Build-Depends: debhelper (>= 7.0.50~)
 Standards-Version: 3.9.4
 Section: libs
