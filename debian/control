@@ -12,7 +12,7 @@ Vcs-Browser: http://anonscm.debian.org/git/collab-maint/spice-protocol.git
 Package: libspice-protocol-dev
 Section: libdevel
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${misc:Depends}
 Description: SPICE protocol headers
  The Simple Protocol for Independent Computing Environments (SPICE) 
  is a remote display system built for virtual environments which
