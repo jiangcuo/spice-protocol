@@ -1,11 +1,11 @@
-spice-protocol (0.12.7-1) UNRELEASED; urgency=medium
+spice-protocol (0.12.7-1) unstable; urgency=medium
 
   * New upstream release
   * Add mjt to uploaders
   * Remove ${shlibs:Depends} as we're only shipping headers
   * Bump Standards-Version to 3.9.5 (no changes needed)
 
- -- Michael Tokarev <mjt@tls.msk.ru>  Fri, 23 May 2014 21:16:05 +0400
+ -- Michael Tokarev <mjt@tls.msk.ru>  Fri, 23 May 2014 21:20:24 +0400
 
 spice-protocol (0.12.6-1) unstable; urgency=low
 
