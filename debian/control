@@ -7,7 +7,7 @@ Standards-Version: 3.9.5
 Section: libs
 Homepage: http://www.spice-space.org/
 Vcs-Git: git://anonscm.debian.org/collab-maint/spice-protocol.git
-Vcs-Browser: http://anonscm.debian.org/git/collab-maint/spice-protocol.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/spice-protocol.git
 
 Package: libspice-protocol-dev
 Section: libdevel
