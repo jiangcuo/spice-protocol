@@ -1,9 +1,9 @@
-spice-protocol (0.12.10-1) UNRELEASED; urgency=medium
+spice-protocol (0.12.10-1) unstable; urgency=medium
 
   * New upstream release
   * fixed vcs http url
 
- -- Michael Tokarev <mjt@tls.msk.ru>  Sat, 24 May 2014 15:39:42 +0400
+ -- Michael Tokarev <mjt@tls.msk.ru>  Thu, 08 Oct 2015 21:55:44 +0300
 
 spice-protocol (0.12.7-1) unstable; urgency=medium
 
