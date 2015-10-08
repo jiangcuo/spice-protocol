@@ -76,9 +76,9 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-subdir = spice
+subdir = python_modules
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
-	$(spice_protocol_include_HEADERS)
+	$(dist_python_codegen_DATA)
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_python_module.m4 \
 	$(top_srcdir)/configure.ac
@@ -134,27 +134,9 @@ am__uninstall_files_from_dir = { \
     || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
-am__installdirs = "$(DESTDIR)$(spice_protocol_includedir)"
-HEADERS = $(spice_protocol_include_HEADERS)
+am__installdirs = "$(DESTDIR)$(python_codegendir)"
+DATA = $(dist_python_codegen_DATA)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
-# Read a list of newline-separated strings from the standard input,
-# and print each of them once, without duplicates.  Input order is
-# *not* preserved.
-am__uniquify_input = $(AWK) '\
-  BEGIN { nonempty = 0; } \
-  { items[$$0] = 1; nonempty = 1; } \
-  END { if (nonempty) { for (i in items) print i; }; } \
-'
-# Make sure the list of sources is unique.  This is necessary because,
-# e.g., the same source file might be shared among _SOURCES variables
-# for different programs/libraries.
-am__define_uniq_tagged_files = \
-  list='$(am__tagged_files)'; \
-  unique=`for i in $$list; do \
-    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
-  done | $(am__uniquify_input)`
-ETAGS = etags
-CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
@@ -231,44 +213,18 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 NULL = 
-spice_protocol_includedir = $(includedir)/spice-1/spice
-spice_protocol_include_HEADERS = \
-	barrier.h				\
-	controller_prot.h			\
-	end-packed.h				\
-	enums.h					\
-	error_codes.h				\
-	foreign_menu_prot.h			\
-	ipc_ring.h				\
-	macros.h				\
-	protocol.h				\
-	qxl_dev.h				\
-	qxl_windows.h				\
-	start-packed.h				\
-	stats.h					\
-	types.h					\
-	vd_agent.h				\
-	vdi_dev.h				\
+python_codegendir = $(libdir)/spice-protocol/python_modules
+dist_python_codegen_DATA = \
+	__init__.py			\
+	codegen.py			\
+	demarshal.py			\
+	marshal.py			\
+	ptypes.py			\
+	spice_parser.py			\
 	$(NULL)
 
-
-# Using the python code generator requires some python modules
-# which might not be installed on the user computer. Given that
-# enums.h is stored in git, and should be up-to-date anyway,
-# we can make this part optional
-@ENABLE_CODEGEN_TRUE@MARSHALLERS_DEPS = \
-@ENABLE_CODEGEN_TRUE@	$(top_srcdir)/python_modules/__init__.py	\
-@ENABLE_CODEGEN_TRUE@	$(top_srcdir)/python_modules/codegen.py		\
-@ENABLE_CODEGEN_TRUE@	$(top_srcdir)/python_modules/demarshal.py	\
-@ENABLE_CODEGEN_TRUE@	$(top_srcdir)/python_modules/marshal.py		\
-@ENABLE_CODEGEN_TRUE@	$(top_srcdir)/python_modules/ptypes.py		\
-@ENABLE_CODEGEN_TRUE@	$(top_srcdir)/python_modules/spice_parser.py	\
-@ENABLE_CODEGEN_TRUE@	$(top_srcdir)/spice_codegen.py			\
-@ENABLE_CODEGEN_TRUE@	$(NULL)
-
-@ENABLE_CODEGEN_TRUE@BUILT_SOURCES = enums.h
-all: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) all-am
+DISTCLEANFILES = *.pyc
+all: all-am
 
 .SUFFIXES:
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
@@ -280,9 +236,9 @@ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__confi
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu spice/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu python_modules/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu spice/Makefile
+	  $(AUTOMAKE) --gnu python_modules/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -301,79 +257,33 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
-install-spice_protocol_includeHEADERS: $(spice_protocol_include_HEADERS)
+install-dist_python_codegenDATA: $(dist_python_codegen_DATA)
 	@$(NORMAL_INSTALL)
-	@list='$(spice_protocol_include_HEADERS)'; test -n "$(spice_protocol_includedir)" || list=; \
+	@list='$(dist_python_codegen_DATA)'; test -n "$(python_codegendir)" || list=; \
 	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(spice_protocol_includedir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(spice_protocol_includedir)" || exit 1; \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(python_codegendir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(python_codegendir)" || exit 1; \
 	fi; \
 	for p in $$list; do \
 	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
 	  echo "$$d$$p"; \
 	done | $(am__base_list) | \
 	while read files; do \
-	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(spice_protocol_includedir)'"; \
-	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(spice_protocol_includedir)" || exit $$?; \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(python_codegendir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(python_codegendir)" || exit $$?; \
 	done
 
-uninstall-spice_protocol_includeHEADERS:
+uninstall-dist_python_codegenDATA:
 	@$(NORMAL_UNINSTALL)
-	@list='$(spice_protocol_include_HEADERS)'; test -n "$(spice_protocol_includedir)" || list=; \
+	@list='$(dist_python_codegen_DATA)'; test -n "$(python_codegendir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	dir='$(DESTDIR)$(spice_protocol_includedir)'; $(am__uninstall_files_from_dir)
+	dir='$(DESTDIR)$(python_codegendir)'; $(am__uninstall_files_from_dir)
+tags TAGS:
 
-ID: $(am__tagged_files)
-	$(am__define_uniq_tagged_files); mkid -fID $$unique
-tags: tags-am
-TAGS: tags
+ctags CTAGS:
 
-tags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
-	set x; \
-	here=`pwd`; \
-	$(am__define_uniq_tagged_files); \
-	shift; \
-	if test -z "$(ETAGS_ARGS)$$*$$unique"; then :; else \
-	  test -n "$$unique" || unique=$$empty_fix; \
-	  if test $$# -gt 0; then \
-	    $(ETAGS) $(ETAGSFLAGS) $(AM_ETAGSFLAGS) $(ETAGS_ARGS) \
-	      "$$@" $$unique; \
-	  else \
-	    $(ETAGS) $(ETAGSFLAGS) $(AM_ETAGSFLAGS) $(ETAGS_ARGS) \
-	      $$unique; \
-	  fi; \
-	fi
-ctags: ctags-am
+cscope cscopelist:
 
-CTAGS: ctags
-ctags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
-	$(am__define_uniq_tagged_files); \
-	test -z "$(CTAGS_ARGS)$$unique" \
-	  || $(CTAGS) $(CTAGSFLAGS) $(AM_CTAGSFLAGS) $(CTAGS_ARGS) \
-	     $$unique
-
-GTAGS:
-	here=`$(am__cd) $(top_builddir) && pwd` \
-	  && $(am__cd) $(top_srcdir) \
-	  && gtags -i $(GTAGS_ARGS) "$$here"
-cscopelist: cscopelist-am
-
-cscopelist-am: $(am__tagged_files)
-	list='$(am__tagged_files)'; \
-	case "$(srcdir)" in \
-	  [\\/]* | ?:[\\/]*) sdir="$(srcdir)" ;; \
-	  *) sdir=$(subdir)/$(srcdir) ;; \
-	esac; \
-	for i in $$list; do \
-	  if test -f "$$i"; then \
-	    echo "$(subdir)/$$i"; \
-	  else \
-	    echo "$$sdir/$$i"; \
-	  fi; \
-	done >> $(top_builddir)/cscope.files
-
-distclean-tags:
-	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
 
 distdir: $(DISTFILES)
 	@srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
@@ -406,15 +316,13 @@ distdir: $(DISTFILES)
 	  fi; \
 	done
 check-am: all-am
-check: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) check-am
-all-am: Makefile $(HEADERS)
+check: check-am
+all-am: Makefile $(DATA)
 installdirs:
-	for dir in "$(DESTDIR)$(spice_protocol_includedir)"; do \
+	for dir in "$(DESTDIR)$(python_codegendir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
-install: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) install-am
+install: install-am
 install-exec: install-exec-am
 install-data: install-data-am
 uninstall: uninstall-am
@@ -440,18 +348,18 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 clean: clean-am
 
 clean-am: clean-generic mostlyclean-am
 
 distclean: distclean-am
 	-rm -f Makefile
-distclean-am: clean-am distclean-generic distclean-tags
+distclean-am: clean-am distclean-generic
 
 dvi: dvi-am
 
@@ -465,7 +373,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-spice_protocol_includeHEADERS
+install-data-am: install-dist_python_codegenDATA
 
 install-dvi: install-dvi-am
 
@@ -509,29 +417,22 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-spice_protocol_includeHEADERS
+uninstall-am: uninstall-dist_python_codegenDATA
 
-.MAKE: all check install install-am install-strip
+.MAKE: install-am install-strip
 
-.PHONY: CTAGS GTAGS TAGS all all-am check check-am clean clean-generic \
-	cscopelist-am ctags ctags-am distclean distclean-generic \
-	distclean-tags distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am install-dvi \
+.PHONY: all all-am check check-am clean clean-generic cscopelist-am \
+	ctags-am distclean distclean-generic distdir dvi dvi-am html \
+	html-am info info-am install install-am install-data \
+	install-data-am install-dist_python_codegenDATA install-dvi \
 	install-dvi-am install-exec install-exec-am install-html \
 	install-html-am install-info install-info-am install-man \
 	install-pdf install-pdf-am install-ps install-ps-am \
-	install-spice_protocol_includeHEADERS install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am tags tags-am uninstall uninstall-am \
-	uninstall-spice_protocol_includeHEADERS
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-generic pdf pdf-am ps ps-am tags-am uninstall \
+	uninstall-am uninstall-dist_python_codegenDATA
 
-
-# this is going to upset automake distcheck, since we try to write to
-# readonly srcdir. To limit the fail chances, rebuild automatically
-# enums.h only if the spice.proto has changed.
-@ENABLE_CODEGEN_TRUE@enums.h: $(top_srcdir)/spice.proto # $(MARSHALLERS_DEPS)
-@ENABLE_CODEGEN_TRUE@	$(AM_V_GEN)$(PYTHON) $(top_srcdir)/spice_codegen.py --generate-enums $< $@ >/dev/null
 
 -include $(top_srcdir)/git.mk
 
