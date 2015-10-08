@@ -33,9 +33,10 @@
 
 #include <spice/types.h>
 #include <spice/enums.h>
+#include <spice/macros.h>
 #include <spice/start-packed.h>
 
-#define SPICE_MAGIC (*(uint32_t*)"REDQ")
+#define SPICE_MAGIC SPICE_MAGIC_CONST("REDQ")
 #define SPICE_VERSION_MAJOR 2
 #define SPICE_VERSION_MINOR 2
 
@@ -133,6 +134,8 @@ enum {
     SPICE_DISPLAY_CAP_COMPOSITE,
     SPICE_DISPLAY_CAP_A8_SURFACE,
     SPICE_DISPLAY_CAP_STREAM_REPORT,
+    SPICE_DISPLAY_CAP_LZ4_COMPRESSION,
+    SPICE_DISPLAY_CAP_PREF_COMPRESSION,
 };
 
 enum {
