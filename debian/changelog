@@ -1,6 +1,7 @@
 spice-protocol (0.12.11-1) UNRELEASED; urgency=medium
 
   * New upstream release
+  * Bump Standards-Version to 3.9.7 (no changes needed)
 
  -- Liang Guo <guoliang@debian.org>  Sat, 12 Mar 2016 09:48:46 +0800
 
