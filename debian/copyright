@@ -38,9 +38,9 @@ License: BSD-3-clause
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.    
 
 
-Files: spice/macros.h,
-       spice/controller_prot.h,
-       spice/foreign_menu_prot.h,
+Files: spice/macros.h
+       spice/controller_prot.h
+       spice/foreign_menu_prot.h
        debian/*
 Copyright: Copyright (C) 2009-2010 Red Hat, Inc
            Copyright (C) 2010 Liang Guo <bluestonechina@gmail.com>
