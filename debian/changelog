@@ -1,9 +1,10 @@
-spice-protocol (0.12.11-1) UNRELEASED; urgency=medium
+spice-protocol (0.12.11-1) unstable; urgency=medium
 
   * New upstream release
-  * Bump Standards-Version to 3.9.7 (no changes needed)
+  * Bump Standards-Version to 3.9.8 (no changes needed)
+  * Use secure uri in vcs*
 
- -- Liang Guo <guoliang@debian.org>  Sat, 12 Mar 2016 09:48:46 +0800
+ -- Liang Guo <guoliang@debian.org>  Wed, 22 Jun 2016 13:38:19 +0800
 
 spice-protocol (0.12.10-1) unstable; urgency=medium
 
