@@ -3,6 +3,7 @@ spice-protocol (0.12.11-1) unstable; urgency=medium
   * New upstream release
   * Bump Standards-Version to 3.9.8 (no changes needed)
   * Use secure uri in vcs*
+  * Bump compat version to 9
   * debian/copyright:
     - Merge paragraphs with same shot name
     - Correct wrong shot license name
