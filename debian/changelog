@@ -1,3 +1,9 @@
+spice-protocol (0.12.12-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Liang Guo <guoliang@debian.org>  Sat, 08 Oct 2016 21:22:00 +0800
+
 spice-protocol (0.12.11-1) unstable; urgency=medium
 
   * New upstream release
