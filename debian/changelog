@@ -1,3 +1,10 @@
+spice-protocol (0.12.13-2) unstable; urgency=medium
+
+  * Mark libspice-protocol-dev Multi-Arch: foreign. (Closes: #842476)
+    Thanks to Helmut Grohne <helmut@subdivi.de>
+
+ -- Liang Guo <guoliang@debian.org>  Sun, 06 Aug 2017 18:18:49 +0800
+
 spice-protocol (0.12.13-1) unstable; urgency=low
 
   * New upstream release

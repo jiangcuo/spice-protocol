@@ -12,6 +12,7 @@ Vcs-Browser: https://anonscm.debian.org/gitweb/?p=collab-maint/spice-protocol.gi
 Package: libspice-protocol-dev
 Section: libdevel
 Architecture: all
+Multi-Arch: foreign
 Depends: ${misc:Depends}
 Description: SPICE protocol headers
  The Simple Protocol for Independent Computing Environments (SPICE) 
