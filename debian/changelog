@@ -2,6 +2,7 @@ spice-protocol (0.12.13-1) unstable; urgency=low
 
   * New upstream release
   * Update debian/copyright, spice/enums.h license change
+  * Bump Standards-Version to 4.0.0 (no changes needed)
 
  -- Liang Guo <guoliang@debian.org>  Sun, 06 Aug 2017 16:26:56 +0800
 
