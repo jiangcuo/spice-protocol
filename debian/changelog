@@ -1,3 +1,15 @@
+spice-protocol (0.12.14-1) unstable; urgency=medium
+
+  * Team upload.
+  * debian/control: Update the Vcs-* fields to point to salsa
+  * New upstream version 0.12.14 (Closes: #904075)
+  * debian/control: Bump Standards-Version to 4.2.1 (no further changes)
+  * Bump debhelper compatibility to 11
+  * debian/watch: Use https:// instead of http://
+  * debian/rules: Disable DH_VERBOSE by default
+
+ -- Laurent Bigonville <bigon@debian.org>  Wed, 29 Aug 2018 17:14:51 +0200
+
 spice-protocol (0.12.13-2) unstable; urgency=medium
 
   * Mark libspice-protocol-dev Multi-Arch: foreign. (Closes: #842476)
