@@ -6,8 +6,8 @@ Build-Depends: debhelper (>= 11)
 Standards-Version: 4.2.1
 Section: libs
 Homepage: http://www.spice-space.org/
-Vcs-Git: https://salsa.debian.org/qemu-team/spice-protocol.git
-Vcs-Browser: https://salsa.debian.org/qemu-team/spice-protocol
+Vcs-Git: https://salsa.debian.org/debian/spice-protocol.git
+Vcs-Browser: https://salsa.debian.org/debian/spice-protocol
 
 Package: libspice-protocol-dev
 Section: libdevel
