@@ -1,4 +1,4 @@
-Format: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=174
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: spice-protocol 
 Upstream-Contact: Alexander Larsson <alexl@redhat.com>,
                   Alon Levy <alevy@redhat.com>,
