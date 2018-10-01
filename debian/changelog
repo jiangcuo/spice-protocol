@@ -2,6 +2,7 @@ spice-protocol (0.12.14-2) UNRELEASED; urgency=medium
 
   * d/copyright: Change Format URL to correct one
   * d/changelog: Remove trailing whitespaces
+  * d/control: Remove trailing whitespaces
 
  -- Ondřej Nový <onovy@debian.org>  Mon, 01 Oct 2018 09:37:43 +0200
 

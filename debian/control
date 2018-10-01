@@ -15,10 +15,10 @@ Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends}
 Description: SPICE protocol headers
- The Simple Protocol for Independent Computing Environments (SPICE) 
+ The Simple Protocol for Independent Computing Environments (SPICE)
  is a remote display system built for virtual environments which
  allows you to view a computing 'desktop' environment not only on
  the machine where it is running, but from anywhere on the Internet
- and from a wide variety of machine architectures. 
+ and from a wide variety of machine architectures.
  .
  This package provides headers defining protocols.
