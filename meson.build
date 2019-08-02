@@ -2,11 +2,13 @@
 # project definition
 #
 project('spice-protocol', 'c',
-        version : '0.12.14',
+        version : '0.14.0',
         license : 'BSD',
         meson_version : '>= 0.41.0')
 
 subdir('spice')
+
+spice_protocol_dep = declare_dependency(include_directories : include_directories('.'))
 
 #
 # spice-protocol.pc generation
