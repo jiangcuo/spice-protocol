@@ -1,8 +1,9 @@
-spice-protocol (0.14.0-2) UNRELEASED; urgency=medium
+spice-protocol (0.14.1-1) UNRELEASED; urgency=medium
 
+  * New upstream release
   * debian/gbp.conf: Enable pristine-tar
 
- -- Laurent Bigonville <bigon@debian.org>  Sat, 25 Apr 2020 12:12:19 +0200
+ -- Laurent Bigonville <bigon@debian.org>  Sat, 25 Apr 2020 12:14:31 +0200
 
 spice-protocol (0.14.0-1) unstable; urgency=medium
 
