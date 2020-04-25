@@ -57,20 +57,33 @@ typedef struct SPICE_ATTR_PACKED VDAgentMessage {
 #define VD_AGENT_PROTOCOL 1
 #define VD_AGENT_MAX_DATA_SIZE 2048
 
-#ifdef SPICE_DEPRECATED
-#define VD_AGENT_CLIPBOARD_MAX_SIZE_DEFAULT 1024
-#define VD_AGENT_CLIPBOARD_MAX_SIZE_ENV "SPICE_CLIPBOARD_MAX_SIZE"
-#endif
-
+/*
+ * Messages and types for guest agent.
+ * These messages are sent through the virtio port "com.redhat.spice.0"
+ * (agent <-> server) or embedded in "agent_data" SPICE protocol message in
+ * the "MainChannel" (server <-> client)
+ */
 enum {
+    /* server -> agent */
     VD_AGENT_MOUSE_STATE = 1,
+    /* client -> agent|server.
+     * Acknowledged by the agent using VD_AGENT_REPLY.
+     * See VDAgentMonitorsConfig structure.
+     */
     VD_AGENT_MONITORS_CONFIG,
+    /* agent -> client.
+     * See VDAgentReply structure.
+     */
     VD_AGENT_REPLY,
     /* Set clipboard data (both directions).
      * Message comes with type and data.
      * See VDAgentClipboard structure.
      */
     VD_AGENT_CLIPBOARD,
+    /* client -> agent.
+     * Acknowledged by Windows agent using VD_AGENT_REPLY.
+     * See VDAgentDisplayConfig structure.
+    */
     VD_AGENT_DISPLAY_CONFIG,
     VD_AGENT_ANNOUNCE_CAPABILITIES,
     /* Asks to listen for clipboard changes (both directions).
@@ -219,6 +232,9 @@ typedef struct SPICE_ATTR_PACKED VDAgentClipboardGrab {
     uint8_t selection;
     uint8_t __reserved[sizeof(uint32_t) - 1 * sizeof(uint8_t)];
 #endif
+#if 0 /* VD_AGENT_CAP_CLIPBOARD_GRAB_SERIAL */
+    uint32_t serial;
+#endif
     uint32_t types[0];
 } VDAgentClipboardGrab;
 
@@ -254,7 +270,7 @@ typedef struct SPICE_ATTR_PACKED VDAgentDeviceDisplayInfo {
     uint32_t monitor_id;
     uint32_t device_display_id;
     uint32_t device_address_len;
-    uint8_t device_address[0];  // a zero-terminated string
+    uint8_t device_address[0];  /* a zero-terminated string */
 } VDAgentDeviceDisplayInfo;
 
 
@@ -270,6 +286,9 @@ typedef struct SPICE_ATTR_PACKED VDAgentGraphicsDeviceInfo {
     VDAgentDeviceDisplayInfo display_info[0];
 } VDAgentGraphicsDeviceInfo;
 
+
+/* Capabilities definitions
+ */
 enum {
     VD_AGENT_CAP_MOUSE_STATE = 0,
     VD_AGENT_CAP_MONITORS_CONFIG,
@@ -287,6 +306,8 @@ enum {
     VD_AGENT_CAP_FILE_XFER_DISABLED,
     VD_AGENT_CAP_FILE_XFER_DETAILED_ERRORS,
     VD_AGENT_CAP_GRAPHICS_DEVICE_INFO,
+    VD_AGENT_CAP_CLIPBOARD_NO_RELEASE_ON_REGRAB,
+    VD_AGENT_CAP_CLIPBOARD_GRAB_SERIAL,
     VD_AGENT_END_CAP,
 };
 
