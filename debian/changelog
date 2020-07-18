@@ -5,6 +5,7 @@ spice-protocol (0.14.1-2) UNRELEASED; urgency=medium
 
   [ Michael Tokarev ]
   * set Maintainer to the QEMU team (Closes: #911429)
+  * set VCS links to point to qemu-team on salsa
 
  -- Laurent Bigonville <bigon@debian.org>  Sat, 25 Apr 2020 12:40:45 +0200
 
