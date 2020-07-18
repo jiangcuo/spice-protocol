@@ -6,7 +6,7 @@ Upstream-Contact: Alexander Larsson <alexl@redhat.com>,
                   Gerd Hoffmann <kraxel@redhat.com>,
                   Izik Eidus <ieidus@redhat.com>,
                   Yonit Halperin <yhalperi@redhat.com>
-Source: http://www.spice-space.org/download/releases/
+Source: https://www.spice-space.org/download/releases/
 
 Files: *
 Copyright: Copyright (C) 2009-2013 Red Hat, Inc
