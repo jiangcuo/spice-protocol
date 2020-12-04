@@ -1,3 +1,20 @@
+Major changes in 0.14.3
+=======================
+* Add VD_AGENT_CLIPBOARD_FILE_LIST to support copy/paste of files with
+  WebDAV support
+* Add support for side mouse buttons
+* Add a MonitorsMM field to VDAgentMonitorsConfig allowing to pass
+  physical monitor dimension
+
+Major changes in 0.14.2
+=======================
+* Removed Autoconf support, only Meson is available
+* Removed foreign-menu and controller interfaces
+* Deprecated CELT support
+* Generate MingW packages building the RPM
+* Allows for the agent to pass back a more specific error to the client
+* Add quality indicators messages
+
 Major changes in 0.14.1
 =======================
 * This is the last release with:
