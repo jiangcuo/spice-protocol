@@ -1,3 +1,15 @@
+spice-protocol (0.14.3-1) unstable; urgency=medium
+
+  * New upstream version 0.14.3 (Closes: #976333)
+  * d/watch: allow .xz extension too (upstream switched to it at 0.14.3)
+  * use meson to build spice-protocol (add it to Build-Depends)
+  * remove references to removed files from d/copyright
+    (spice/controller_prot.h spice/foreign_menu_prot.h)
+  * hack: remove arch-specific but unused libdir= assignment
+    in generated spice-protocol.pc
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Fri, 04 Dec 2020 15:45:00 +0300
+
 spice-protocol (0.14.1-2) unstable; urgency=medium
 
   [ Laurent Bigonville ]
