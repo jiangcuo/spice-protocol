@@ -5,3 +5,9 @@
 
 %:
 	dh  $@
+
+# meson-generated spice-protocol.pc contains libdir= assignment
+# which is not used but causes lintian to emit error condition
+override_dh_auto_build:
+	dh_auto_build
+	sed -i '/^libdir=/D' obj-*/meson-private/spice-protocol.pc
