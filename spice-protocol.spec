@@ -1,34 +1,67 @@
 Name:           spice-protocol
-Version:        0.14.1
+Version:        0.14.3
 Release:        1%{?dist}
 Summary:        Spice protocol header files
 Group:          Development/Libraries
-# Main headers are BSD, controller / foreign menu are LGPL
-License:        BSD and LGPLv2+
+License:        BSD
 URL:            https://www.spice-space.org
-Source0:        https://www.spice-space.org/download/releases/%{name}-%{version}.tar.bz2
+Source0:        https://www.spice-space.org/download/releases/%{name}-%{version}.tar.xz
 BuildArch:      noarch
+BuildRequires:  meson gcc
+BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  mingw64-filesystem >= 95
 
-%description
-Header files describing the spice protocol
+%define desc Header files describing the spice protocol \
 and the para-virtual graphics card QXL.
 
+%description
+%{desc}
+
+%package -n mingw32-spice-protocol
+Summary:        %{summary}
+Requires:       mingw32-pkg-config
+
+%description -n mingw32-spice-protocol
+%{desc}
+
+%package -n mingw64-spice-protocol
+Summary:        %{summary}
+Requires:       mingw64-pkg-config
+
+%description -n mingw64-spice-protocol
+%{desc}
 
 %prep
 %setup -q
 
 %build
-%configure
-make %{?_smp_mflags}
+%meson
+%meson_build
+
+%mingw_meson
+%mingw_ninja
+
 
 %install
-make DESTDIR=%{buildroot} install
+%meson_install
+export DESTDIR=%{buildroot}
+%mingw_ninja install
 
 
 %files
 %doc COPYING CHANGELOG.md
 %{_includedir}/spice-1
 %{_datadir}/pkgconfig/spice-protocol.pc
+
+%files -n mingw32-spice-protocol
+%doc COPYING CHANGELOG.md
+%{mingw32_includedir}/spice-1
+%{mingw32_datadir}/pkgconfig/spice-protocol.pc
+
+%files -n mingw64-spice-protocol
+%doc COPYING CHANGELOG.md
+%{mingw64_includedir}/spice-1
+%{mingw64_datadir}/pkgconfig/spice-protocol.pc
 
 
 %changelog

@@ -47,9 +47,12 @@ typedef struct SPICE_ATTR_PACKED VDIChunkHeader {
 } VDIChunkHeader;
 
 typedef struct SPICE_ATTR_PACKED VDAgentMessage {
+    /* Should be VD_AGENT_PROTOCOL */
     uint32_t protocol;
+    /* One of VD_AGENT_xxx in the enumeration below */
     uint32_t type;
     uint64_t opaque;
+    /* Size of data following */
     uint32_t size;
     uint8_t data[0];
 } VDAgentMessage;
@@ -64,7 +67,9 @@ typedef struct SPICE_ATTR_PACKED VDAgentMessage {
  * the "MainChannel" (server <-> client)
  */
 enum {
-    /* server -> agent */
+    /* server -> agent
+     * See VDAgentMouseState structure.
+     */
     VD_AGENT_MOUSE_STATE = 1,
     /* client -> agent|server.
      * Acknowledged by the agent using VD_AGENT_REPLY.
@@ -85,6 +90,7 @@ enum {
      * See VDAgentDisplayConfig structure.
     */
     VD_AGENT_DISPLAY_CONFIG,
+    /* See VDAgentAnnounceCapabilities structure. */
     VD_AGENT_ANNOUNCE_CAPABILITIES,
     /* Asks to listen for clipboard changes (both directions).
      * Remote should empty clipboard and wait for one
@@ -97,13 +103,21 @@ enum {
      * See VDAgentClipboardRequest structure.
      */
     VD_AGENT_CLIPBOARD_REQUEST,
+    /* See VDAgentClipboardRelease structure. */
     VD_AGENT_CLIPBOARD_RELEASE,
+    /* See VDAgentFileXferStartMessage structure. */
     VD_AGENT_FILE_XFER_START,
+    /* See VDAgentFileXferStatusMessage structure. */
     VD_AGENT_FILE_XFER_STATUS,
+    /* See VDAgentFileXferDataMessage structure. */
     VD_AGENT_FILE_XFER_DATA,
+    /* Empty message */
     VD_AGENT_CLIENT_DISCONNECTED,
+    /* See VDAgentMaxClipboard structure. */
     VD_AGENT_MAX_CLIPBOARD,
+    /* See VDAgentAudioVolumeSync structure. */
     VD_AGENT_AUDIO_VOLUME_SYNC,
+    /* See VDAgentGraphicsDeviceInfo structure. */
     VD_AGENT_GRAPHICS_DEVICE_INFO,
     VD_AGENT_END_MESSAGE,
 };
@@ -120,29 +134,60 @@ enum {
 };
 
 typedef struct SPICE_ATTR_PACKED VDAgentFileXferStatusMessage {
-   uint32_t id;
-   uint32_t result;
-   /* Used to send additional data for detailed error messages
-    * to clients with VD_AGENT_CAP_FILE_XFER_DETAILED_ERRORS capability.
-    * Type of data varies with the result:
-    * result : data type (NULL if no data)
-    * VD_AGENT_FILE_XFER_STATUS_NOT_ENOUGH_SPACE : uint64_t
-    * VD_AGENT_FILE_XFER_STATUS_SESSION_LOCKED : NULL
-    * VD_AGENT_FILE_XFER_STATUS_VDAGENT_NOT_CONNECTED : NULL
-    * VD_AGENT_FILE_XFER_STATUS_DISABLED : NULL
-    */
-   uint8_t data[0];
+    uint32_t id;
+    uint32_t result;
+    /* Used to send additional data for detailed error messages
+     * to clients with VD_AGENT_CAP_FILE_XFER_DETAILED_ERRORS capability.
+     * Type of data varies with the result:
+     * result : data type (NULL if no data)
+     * VD_AGENT_FILE_XFER_STATUS_ERROR : VDAgentFileXferStatusError
+     * VD_AGENT_FILE_XFER_STATUS_NOT_ENOUGH_SPACE : VDAgentFileXferStatusNotEnoughSpace
+     * VD_AGENT_FILE_XFER_STATUS_SESSION_LOCKED : NULL
+     * VD_AGENT_FILE_XFER_STATUS_VDAGENT_NOT_CONNECTED : NULL
+     * VD_AGENT_FILE_XFER_STATUS_DISABLED : NULL
+     */
+    uint8_t data[0];
 } VDAgentFileXferStatusMessage;
 
+/* Detailed error for VD_AGENT_FILE_XFER_STATUS_NOT_ENOUGH_SPACE.
+ * Only present if VD_AGENT_CAP_FILE_XFER_DETAILED_ERRORS is
+ * negotiated and the size of the message can contain it.
+ */
+typedef struct SPICE_ATTR_PACKED VDAgentFileXferStatusNotEnoughSpace {
+    /* Disk free space in bytes. */
+    uint64_t disk_free_space;
+} VDAgentFileXferStatusNotEnoughSpace;
+
+enum {
+    /* Error number is a G_IO_ERROR_xxx defined in
+     * https://developer.gnome.org/gio/stable/gio-GIOError.html
+     */
+    VD_AGENT_FILE_XFER_STATUS_ERROR_GLIB_IO,
+};
+
+/* Detailed error for VD_AGENT_FILE_XFER_STATUS_ERROR.
+ * Only present if VD_AGENT_CAP_FILE_XFER_DETAILED_ERRORS is
+ * negotiated and the size of the message can contain it.
+ * Otherwise a generic error should be assumed and reported.
+ */
+typedef struct SPICE_ATTR_PACKED VDAgentFileXferStatusError {
+    /* One of VD_AGENT_FILE_XFER_STATUS_ERROR_xxx enumeration
+     */
+    uint8_t error_type;
+    /* An error code which enumeration depends on error_type
+     */
+    uint32_t error_code;
+} VDAgentFileXferStatusError;
+
 typedef struct SPICE_ATTR_PACKED VDAgentFileXferStartMessage {
-   uint32_t id;
-   uint8_t data[0];
+    uint32_t id;
+    uint8_t data[0];
 } VDAgentFileXferStartMessage;
 
 typedef struct SPICE_ATTR_PACKED VDAgentFileXferDataMessage {
-   uint32_t id;
-   uint64_t size;
-   uint8_t data[0];
+    uint32_t id;
+    uint64_t size;
+    uint8_t data[0];
 } VDAgentFileXferDataMessage;
 
 typedef struct SPICE_ATTR_PACKED VDAgentMonConfig {
@@ -160,13 +205,29 @@ typedef struct SPICE_ATTR_PACKED VDAgentMonConfig {
 
 enum {
     VD_AGENT_CONFIG_MONITORS_FLAG_USE_POS = (1 << 0),
+    VD_AGENT_CONFIG_MONITORS_FLAG_PHYSICAL_SIZE = (1 << 1),
 };
 
 typedef struct SPICE_ATTR_PACKED VDAgentMonitorsConfig {
     uint32_t num_of_monitors;
     uint32_t flags;
     VDAgentMonConfig monitors[0];
+    /* only sent if the FLAG_PHYSICAL_SIZE is present: */
+    /* VDAgentMonitorMM physical_sizes[0]; */
 } VDAgentMonitorsConfig;
+
+
+/* Physical size of the monitor in millimeters.
+ * Having this information, the remote/guest display can configure itself with
+ * appropriate font & scaling to maintain readability. */
+typedef struct SPICE_ATTR_PACKED VDAgentMonitorMM {
+    /*
+     * Note a width and height of 0 can be used to indicate a disabled
+     * monitor or no size information is present.
+     */
+    uint16_t height;
+    uint16_t width;
+} VDAgentMonitorMM;
 
 enum {
     VD_AGENT_DISPLAY_CONFIG_FLAG_DISABLE_WALLPAPER = (1 << 0),
@@ -185,6 +246,8 @@ typedef struct SPICE_ATTR_PACKED VDAgentDisplayConfig {
 #define VD_AGENT_RBUTTON_MASK (1 << 3)
 #define VD_AGENT_UBUTTON_MASK (1 << 4)
 #define VD_AGENT_DBUTTON_MASK (1 << 5)
+#define VD_AGENT_SBUTTON_MASK (1 << 6)
+#define VD_AGENT_EBUTTON_MASK (1 << 7)
 
 typedef struct SPICE_ATTR_PACKED VDAgentMouseState {
     uint32_t x;
@@ -219,6 +282,12 @@ enum {
     VD_AGENT_CLIPBOARD_IMAGE_BMP,  /* optional */
     VD_AGENT_CLIPBOARD_IMAGE_TIFF, /* optional */
     VD_AGENT_CLIPBOARD_IMAGE_JPG,  /* optional */
+    /* identifies a list of absolute paths in phodav server
+     * that is associated with the "org.spice-space.webdav.0" webdav channel;
+     * the items are encoded in UTF-8 and separated by '\0';
+     * the first item must be either "copy" or "cut" (without the quotes)
+     * to indicate what action should be performed with the files that follow */
+    VD_AGENT_CLIPBOARD_FILE_LIST,
 };
 
 enum {
@@ -283,7 +352,11 @@ typedef struct SPICE_ATTR_PACKED VDAgentDeviceDisplayInfo {
  */
 typedef struct SPICE_ATTR_PACKED VDAgentGraphicsDeviceInfo {
     uint32_t count;
+#ifdef _MSC_VER
+    uint8_t display_info[0];
+#else
     VDAgentDeviceDisplayInfo display_info[0];
+#endif
 } VDAgentGraphicsDeviceInfo;
 
 
